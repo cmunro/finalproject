@@ -1,14 +1,8 @@
 # Final Project
 
-## Instructions
-
-This repository is a stub for your final project. Fork it as a template for your project, and develop your code in the forked repository. For details on how to fork and turn in the project, see section 3 of the github education  [documentation](https://education.github.com/guide/forks). After you fork the repository, please enable the issue tracker in the repository settings so that others in the class (including the professor) can provide feedback.
-
-Expand on the readme questions below to provide an overview of the goals, background, and challenges for the final project. You can delete the questions as you write text that answers them, or leave the prompts in place. You can also delete this instruction section of you like.
-
 ## Introduction
 
-This is a final project for the [Interacting with Data](https://github.com/Brown-BIOL2430-S04-Fall2015/syllabus) seminar in fall 2015. This project (a very brief, ie 1-2 sentence, overview of the project)...
+This is a final project for the [Interacting with Data](https://github.com/Brown-BIOL2430-S04-Fall2015/syllabus) seminar in fall 2015. This project aims to visualize gene expression data, specifically using a force directed graph layout to demonstrate the coexpression of genes within different tissues.  
 
 To view this project, ... (embed visualization here or provide instructions on how to view the project).
 
@@ -20,6 +14,8 @@ Description of data...
 - Data structure - what are the variables? How are they organized? What states can they have
 
 ## Background
+
+The goal of this project was to visualize gene expression patterns in a manner similar to a graph from [Andris et al. (2015) PLoS ONE](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0123507). I adjusted code from [Mike Bostock's visualizations of characters in *Les Miserables*](http://bl.ocks.org/mbostock/4062045).
 
 Examples of previous visualizations of similar data or processes, if any exist... Include links or add images to markdown document... how were data mapped to aesthetics in these previous approaches? Was there filtering?
 
