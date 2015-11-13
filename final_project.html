@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--  -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Gene expression GO terms</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <!--<script src="../d3/d3.min.js"></script>-->
+    <style type="text/css">
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+      }
+      
+      .axis text {
+        font-family: sans-serif;
+        font-size: 11px;
+      }
+    </style>
+  </head>
+  <body>
+
+  
+<h2> Introduction </h2>
+<p>
+This is a visualization of gene expression patterns of the Siphonophore Bargmannia elongata, showing normalized counts between two major tissue types. I generated normalized counts using the R package edgeR, and generated Gene Ontology (GO) terms using the program <a href="https://www.blast2go.com/"> blast2go </a>. Under this <a href="https://en.wikipedia.org/wiki/Gene_ontology">method</a>, genes are grouped into three main domains: 1) cellular component; 2) molecular function; 3) biological proccess.  
+
+</p>
+
+<h2> The plot </h2>
+
+        <p> Click on the column names to select different GO terms </p> 
+
+<script>
+      var w = 500;
+      var h = 100;
+
+      var dataset = [
+              [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
+              [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
+              ];
+
+      //data_path = "../smallertestlog.csv"
+      //d3.csv(data_path, function(error, data){
+       /*       if (error) {  //If error is not null, something went wrong.
+          console.log(error);  //Log the error.
+        } else {      //If no error, the file loaded correctly. Yay!
+          console.log(data);   //Log the data.
+        }
+        dataset=data;
+      });*/
+
+     // var columns=["count_5_3_R1", "count_5_3_R2", "count_5_4_R1", "count_5_4_R2"]; //generate column var for selection
+
+      var svg = d3.selectAll("body") //generate var svg
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+      svg.selectAll("circle")  //attach circles to data --generate scatterplot
+      .data(dataset)
+      .enter()
+      .append("circle")     
+      .attr("cx", function(d) {
+        return d[1];
+      })
+      .attr("cy", function(d) {
+        return d[2];
+      })
+      .attr("r", 5);
+        
+
+    </script>
+  </body>
+</html>
