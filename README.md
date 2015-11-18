@@ -2,24 +2,22 @@
 
 ## Introduction
 
-This is a final project for the [Interacting with Data](https://github.com/Brown-BIOL2430-S04-Fall2015/syllabus) seminar in fall 2015. This project aims to visualize gene expression data, specifically using a force directed graph layout to demonstrate the coexpression of genes within different tissues.
+This is a final project for the [Interacting with Data](https://github.com/Brown-BIOL2430-S04-Fall2015/syllabus) seminar in fall 2015. This project aims to visualize gene expression data, with an eye to showing specific Gene Ontology (GO) terms that relate to each differentially expressed gene (pairwise tissue comparisons, within a single species). GO terms were established as a consistent way to describe the biology of genes across different species, with very specific vocabulary to describe gene products that may be part of a 'Biological Process', be a 'Cellular Component', or have a specific 'Molecular Function' (each of these is a major GO domain). The GO ontology is structured in such a way that they have nested relationships, may have relationships with multiple terms in the same domain.
 
 To view the project...
 
 ## The data
 
-Description of data...
+These data are unpublished, and form a small part of my thesis work. I have pulled out raw counts for two major tissue types found in a siphonophore. I have computed genewise differences in the means between the two groups using EdgeR in R. I also mapped GO terms to the transcriptome using Blast2GO, and determined significantly enriched GO terms using the R package topGO.
 
-- Data source (simulated/ published/ unpublished?)
+The datafile included in this visualisation shows a very small fraction of total genes in the larger dataset. This is because I have only included genes that are present in these tissues, that also has a Blast hit and GO annotations. 
+
+
 - Data structure - what are the variables? How are they organized? What states can they have
 
 ## Background
 
-The goal of this project was to visualize gene expression patterns in a manner similar to a graph from [Andris et al. (2015) PLoS ONE](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0123507). I adjusted code from [Mike Bostock's visualizations of characters in *Les Miserables*](http://bl.ocks.org/mbostock/4062045).
-
-Examples of previous visualizations of similar data or processes, if any exist... Include links or add images to markdown document... how were data mapped to aesthetics in these previous approaches? Was there filtering?
-
-Shortcomings of previous approaches, or potentially interesting gaps between previous approaches...
+The goal of this project was to visualize gene expression patterns as a scatterplot, in a manner similar to [Casey's iris visualization](https://github.com/Brown-BIOL2430-S04-Fall2015/syllabus/tree/master/exercises/iris). I would like to be able to click on GO terms, and be able to visualise the relative number of genes that fall into this category, and provide a mean count for this group overall. Such a plot could be a starting point for a plot that would consider each of these GO terms in a more scientifically rigorous manner. 
 
 ## This project
 
@@ -39,7 +37,7 @@ Are any data mapped to more than one aesthetic attribute? Why?
 
 ### Motion
 
-If motion is used, what purpose does it serve ( metaphor (eg representing motion in real world) / transition continuity between views / etc )
+Motion is used in this plot to show continuity between the raw counts and the average GO term genes. 
 
 ### Perspective
 
