@@ -27,52 +27,109 @@
   
 <h2> Introduction </h2>
 <p>
-This is a visualization of gene expression patterns of the Siphonophore Bargmannia elongata, showing normalized counts between two major tissue types. I generated normalized counts using the R package edgeR, and generated Gene Ontology (GO) terms using the program <a href="https://www.blast2go.com/"> blast2go </a>. Under this <a href="https://en.wikipedia.org/wiki/Gene_ontology">method</a>, genes are grouped into three main domains: 1) cellular component; 2) molecular function; 3) biological proccess.  
+This is a visualization of gene expression patterns of the Siphonophore Bargmannia elongata, showing normalized counts between two major tissue types. I generated normalized counts using the R package edgeR, and generated Gene Ontology (GO) terms using the program <a href="https://www.blast2go.com/"> blast2go </a>. Under this <a href="https://en.wikipedia.org/wiki/Gene_ontology">method</a>, genes are grouped into three main domains: 1) cellular component; 2) molecular function; 3) biological process. Using the R package topGO, I obtained a list of GO terms that are significantly enriched in this dataset - below are three examples of GO terms that are significantly enriched in the biological process domain.    
 
 </p>
 
 <h2> The plot </h2>
 
-        <p> Click on the column names to select different GO terms </p> 
+<p>Click on the GO terms below to visualize them on the scatter plot.</p>
+
+<p>
+<h3>Stress-activated MAPK cascade</h3>
+<ul id="mapk">
+</ul>
+</p>
+
+<p>
+<h3>Wnt signaling pathway</h3>
+<ul id="wnt">
+</ul>
+</p>
+
+<p>
+<h3>Cell fate specification</h3>
+<ul id="cell">
+</ul>
+</p>
 
 <script>
-      var w = 500;
-      var h = 100;
+var w = 600;
+var h = 300;
 
-      var dataset = [
+/* var dataset = [
               [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
               [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
-              ];
-
-      //data_path = "../smallertestlog.csv"
-      //d3.csv(data_path, function(error, data){
-       /*       if (error) {  //If error is not null, something went wrong.
+              ]; */
+var dataset =[]
+      data_path = "../E.txt"
+      d3.tsv(data_path, function(error,data){
+       if (error) {  //If error is not null, something went wrong.
           console.log(error);  //Log the error.
         } else {      //If no error, the file loaded correctly. Yay!
           console.log(data);   //Log the data.
         }
         dataset=data;
-      });*/
-
+      });
+    
      // var columns=["count_5_3_R1", "count_5_3_R2", "count_5_4_R1", "count_5_4_R2"]; //generate column var for selection
 
-      var svg = d3.selectAll("body") //generate var svg
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
+var svg = d3.selectAll("body") //generate var svg
+     .append("svg")
+     .attr("width", w)
+     .attr("height", h);
 
-      svg.selectAll("circle")  //attach circles to data --generate scatterplot
-      .data(dataset)
-      .enter()
-      .append("circle")     
-      .attr("cx", function(d) {
-        return d[1];
-      })
-      .attr("cy", function(d) {
-        return d[2];
-      })
-      .attr("r", 5);
-        
+var padding = 40; //add padding to the plot
+
+//set up scales
+var xScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset, function(d) { return d[8]; })])
+                     .range([padding, w-padding]);
+var yScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset, function(d) { return d[7]; })])
+                     .range([h-padding,padding]);
+var rScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset, function(d) { return d[2]; })])
+                     .range([2, 5]); //edit rScale to give number of genes involved in GO?
+
+svg.selectAll("circle")  //attach circles to data --generate scatterplot
+  .data(dataset)
+  .enter()
+  .append("circle")     
+  .attr("cx", function(d) {
+    return xScale(d[8]);
+  })
+  .attr("cy", function(d) {
+    return yScale(d[7]);
+  })
+  .attr("r", function(d) {
+    return rScale(d[1]);
+  });
+
+  //set up axes
+  var xAxis = d3.svg.axis()
+                  .scale(xScale)
+                  .orient("bottom")
+                  .ticks(5); 
+  var yAxis = d3.svg.axis()
+                  .scale(yScale)
+                  .orient("left")
+                  .ticks(2);
+
+svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + (h - padding) + ")")
+    .call(xAxis);
+
+//Create Y axis
+svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(" + padding + ",0)")
+    .call(yAxis);
+
+
+
+
 
     </script>
   </body>
