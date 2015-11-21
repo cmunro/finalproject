@@ -22,7 +22,6 @@
       }
 
       .dot {
-      fill: steelblue;
       stroke: #000;
       }
 
@@ -131,7 +130,7 @@ svg.append("g")
     .attr("x",width)
     .attr("y", -6)
     .style("text-anchor","end")
-    .text("Nectophore");
+    .text("Nectophore counts (log)");
 
 //Create Y axis
 svg.append("g")
@@ -143,7 +142,7 @@ svg.append("g")
     .attr("y", 6)
     .attr("dy", ".71em")
     .style("text-anchor", "end")
-    .text("Gastrozooid");
+    .text("Gastrozooid counts (log)");
 
 
 svg.selectAll("dot")  //attach circles to data --generate scatterplot
