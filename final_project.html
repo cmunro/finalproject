@@ -20,6 +20,12 @@
         font-family: sans-serif;
         font-size: 11px;
       }
+
+      .point {
+      fill: steelblue;
+      stroke: #000;
+      }
+
     </style>
   </head>
   <body>
@@ -61,17 +67,34 @@ var h = 300;
               [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
               [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
               ]; */
-var dataset =[]
       data_path = "../E.txt"
+
+    var dataset=[];
+      
       d3.tsv(data_path, function(error,data){
-       if (error) {  //If error is not null, something went wrong.
-          console.log(error);  //Log the error.
-        } else {      //If no error, the file loaded correctly. Yay!
-          console.log(data);   //Log the data.
-        }
-        dataset=data;
-      });
-    
+       data.forEach(function(d) {
+      d.gene = +d.gene;
+      d.logFC_gast_nect = +d.logFC_gast_nect;
+      d.logCPM_gast_nect = +d.logCPM_gast_nect;
+      d.CMN0040 = +d.CMN0040;
+      d.CMN0039 = +d.CMN0039;
+      d.CMN0047 = +d.CMN0047;
+      d.CMN0048 = +d.CMN0048;
+      d.CMN0039_GO_wnt = +d.CMN0039_GO_wnt;
+      d.CMN0040_GO_wnt = +d.CMN0040_GO_wnt;
+      d.CMN0039_GO_mapk = +d.CMN0039_GO_mapk;
+      d.CMN0040_GO_mapk = +d.CMN0040_GO_mapk;
+      d.CMN0039_GO_cyst = +d.CMN0039_GO_cyst;
+      d.CMN0040_GO_cyst = +d.CMN0040_GO_cyst;
+      d.CMN0039_GO_fate = +d.CMN0039_GO_fate;
+      d.CMN0040_GO_fate = +d.CMN0040_GO_fate;
+          });
+      console.log(data);
+      dataset = data;
+
+      return dataset;
+ 
+     
      // var columns=["count_5_3_R1", "count_5_3_R2", "count_5_4_R1", "count_5_4_R2"]; //generate column var for selection
 
 var svg = d3.selectAll("body") //generate var svg
@@ -83,28 +106,30 @@ var padding = 40; //add padding to the plot
 
 //set up scales
 var xScale = d3.scale.linear()
-                     .domain([0, d3.max(dataset, function(d) { return d[8]; })])
+                     .domain([0, d3.max(dataset, function(d) { return d[5]; })])
                      .range([padding, w-padding]);
 var yScale = d3.scale.linear()
-                     .domain([0, d3.max(dataset, function(d) { return d[7]; })])
+                     .domain([0, d3.max(dataset, function(d) { return d[4]; })])
                      .range([h-padding,padding]);
-var rScale = d3.scale.linear()
+/*var rScale = d3.scale.linear()
                      .domain([0, d3.max(dataset, function(d) { return d[2]; })])
-                     .range([2, 5]); //edit rScale to give number of genes involved in GO?
+                     .range([2, 5]); //edit rScale to give number of genes involved in GO? */
 
 svg.selectAll("circle")  //attach circles to data --generate scatterplot
   .data(dataset)
   .enter()
-  .append("circle")     
+  .append("circle")
+  .attr("class","point")     
   .attr("cx", function(d) {
-    return xScale(d[8]);
+    return xScale(d[5]);
   })
   .attr("cy", function(d) {
-    return yScale(d[7]);
+    return yScale(d[4]);
   })
-  .attr("r", function(d) {
+  .attr("r", 5);
+  /*.attr("r", function(d) {
     return rScale(d[1]);
-  });
+  });*/
 
   //set up axes
   var xAxis = d3.svg.axis()
@@ -127,9 +152,7 @@ svg.append("g")
     .attr("transform", "translate(" + padding + ",0)")
     .call(yAxis);
 
-
-
-
+});
 
     </script>
   </body>
