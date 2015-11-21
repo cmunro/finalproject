@@ -21,7 +21,7 @@
         font-size: 11px;
       }
 
-      .point {
+      .dot {
       fill: steelblue;
       stroke: #000;
       }
@@ -60,97 +60,111 @@ This is a visualization of gene expression patterns of the Siphonophore Bargmann
 </p>
 
 <script>
-var w = 600;
-var h = 300;
+var margin = {top: 20, right: 20, bottom: 30, left: 60},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+//set up scales
+var x = d3.scale.linear()
+    .range([0, width]);
+var y = d3.scale.linear()
+    .range([height,0]);
+
+  //set up axes
+var xAxis = d3.svg.axis()
+                  .scale(x)
+                  .orient("bottom")
+                  .ticks(8); 
+var yAxis = d3.svg.axis()
+                  .scale(y)
+                  .orient("left")
+                  .ticks(8);
+
+var svg = d3.selectAll("body") //generate var svg
+             .append("svg")
+             .attr("width", width + margin.left + margin.right)
+             .attr("height", height + margin.top + margin.bottom)
+             .append("g")
+             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 /* var dataset = [
               [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
               [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
               ]; */
-      data_path = "../E.txt"
-
-    var dataset=[];
+data_path = "../E.txt"
       
-      d3.tsv(data_path, function(error,data){
-       data.forEach(function(d) {
-      d.gene = +d.gene;
-      d.logFC_gast_nect = +d.logFC_gast_nect;
-      d.logCPM_gast_nect = +d.logCPM_gast_nect;
-      d.CMN0040 = +d.CMN0040;
-      d.CMN0039 = +d.CMN0039;
-      d.CMN0047 = +d.CMN0047;
-      d.CMN0048 = +d.CMN0048;
-      d.CMN0039_GO_wnt = +d.CMN0039_GO_wnt;
-      d.CMN0040_GO_wnt = +d.CMN0040_GO_wnt;
-      d.CMN0039_GO_mapk = +d.CMN0039_GO_mapk;
-      d.CMN0040_GO_mapk = +d.CMN0040_GO_mapk;
-      d.CMN0039_GO_cyst = +d.CMN0039_GO_cyst;
-      d.CMN0040_GO_cyst = +d.CMN0040_GO_cyst;
-      d.CMN0039_GO_fate = +d.CMN0039_GO_fate;
-      d.CMN0040_GO_fate = +d.CMN0040_GO_fate;
+d3.tsv(data_path, function(error,data){
+   if (error) throw error;
+  
+  data.forEach(function(d) {
+    d.gene = +d.gene;
+    d.logFC_gast_nect = +d.logFC_gast_nect;
+    d.logCPM_gast_nect = +d.logCPM_gast_nect;
+    d.CMN0040 = +d.CMN0040;
+    d.CMN0039 = +d.CMN0039;
+    d.CMN0047 = +d.CMN0047;
+    d.CMN0048 = +d.CMN0048;
+    d.CMN0039_GO_wnt = +d.CMN0039_GO_wnt;
+    d.CMN0040_GO_wnt = +d.CMN0040_GO_wnt;
+    d.CMN0039_GO_mapk = +d.CMN0039_GO_mapk;
+    d.CMN0040_GO_mapk = +d.CMN0040_GO_mapk;
+    d.CMN0039_GO_cyst = +d.CMN0039_GO_cyst;
+    d.CMN0040_GO_cyst = +d.CMN0040_GO_cyst;
+    d.CMN0039_GO_fate = +d.CMN0039_GO_fate;
+    d.CMN0040_GO_fate = +d.CMN0040_GO_fate;
           });
-      console.log(data);
-      dataset = data;
+  
+  console.log(data);
 
-      return dataset;
- 
-     
-     // var columns=["count_5_3_R1", "count_5_3_R2", "count_5_4_R1", "count_5_4_R2"]; //generate column var for selection
+  x.domain(d3.extent(data, function(d) { return d.CMN0039; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.CMN0040; })).nice();
 
-var svg = d3.selectAll("body") //generate var svg
-     .append("svg")
-     .attr("width", w)
-     .attr("height", h);
-
-var padding = 40; //add padding to the plot
-
-//set up scales
-var xScale = d3.scale.linear()
-                     .domain([0, d3.max(dataset, function(d) { return d[5]; })])
-                     .range([padding, w-padding]);
-var yScale = d3.scale.linear()
-                     .domain([0, d3.max(dataset, function(d) { return d[4]; })])
-                     .range([h-padding,padding]);
 /*var rScale = d3.scale.linear()
                      .domain([0, d3.max(dataset, function(d) { return d[2]; })])
                      .range([2, 5]); //edit rScale to give number of genes involved in GO? */
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
+    .append("text")
+    .attr("class","label")
+    .attr("x",width)
+    .attr("y", -6)
+    .style("text-anchor","end")
+    .text("Nectophore");
 
-svg.selectAll("circle")  //attach circles to data --generate scatterplot
-  .data(dataset)
+//Create Y axis
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .attr("class", "label")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Gastrozooid");
+
+
+svg.selectAll("dot")  //attach circles to data --generate scatterplot
+  .data(data)
   .enter()
   .append("circle")
-  .attr("class","point")     
+  .attr("class","dot")     
   .attr("cx", function(d) {
-    return xScale(d[5]);
+    return x(d.CMN0039);
   })
   .attr("cy", function(d) {
-    return yScale(d[4]);
+    return y(d.CMN0040);
   })
-  .attr("r", 5);
+  .attr("r", 2.5);
   /*.attr("r", function(d) {
     return rScale(d[1]);
   });*/
 
-  //set up axes
-  var xAxis = d3.svg.axis()
-                  .scale(xScale)
-                  .orient("bottom")
-                  .ticks(5); 
-  var yAxis = d3.svg.axis()
-                  .scale(yScale)
-                  .orient("left")
-                  .ticks(2);
 
-svg.append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate(0," + (h - padding) + ")")
-    .call(xAxis);
 
-//Create Y axis
-svg.append("g")
-    .attr("class", "axis")
-    .attr("transform", "translate(" + padding + ",0)")
-    .call(yAxis);
+
 
 });
 
