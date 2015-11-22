@@ -90,15 +90,12 @@ var svg = d3.selectAll("body") //generate var svg
               [5, 20], [480, 90], [250, 50], [100, 33], [330, 95],
               [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]
               ]; */
-data_path = "../E.txt"
+data_path = "../F.txt"
       
 d3.tsv(data_path, function(error,data){
    if (error) throw error;
   
   data.forEach(function(d) {
-    d.gene = +d.gene;
-    d.logFC_gast_nect = +d.logFC_gast_nect;
-    d.logCPM_gast_nect = +d.logCPM_gast_nect;
     d.CMN0040 = +d.CMN0040;
     d.CMN0039 = +d.CMN0039;
     d.CMN0047 = +d.CMN0047;
@@ -111,6 +108,11 @@ d3.tsv(data_path, function(error,data){
     d.CMN0040_GO_cyst = +d.CMN0040_GO_cyst;
     d.CMN0039_GO_fate = +d.CMN0039_GO_fate;
     d.CMN0040_GO_fate = +d.CMN0040_GO_fate;
+    d.wnt_radius = +d.wnt_radius;
+    d.mapk_radius = +d.mapk_radius;
+    d.cyst_radius = +d.cyst_radius;
+    d.fate_radius = +d.fate_radius;
+
           });
   
   console.log(data);
