@@ -4,7 +4,7 @@
 
 This is a final project for the [Interacting with Data](https://github.com/Brown-BIOL2430-S04-Fall2015/syllabus) seminar in fall 2015. This project aims to visualize gene expression data, with an eye to showing specific Gene Ontology (GO) terms that relate to each differentially expressed gene (pairwise tissue comparisons, within a single species). GO terms were established as a consistent way to describe the biology of genes across different species, with very specific vocabulary to describe gene products that may be part of a 'Biological Process', be a 'Cellular Component', or have a specific 'Molecular Function' (each of these is a major GO domain). The GO ontology is structured in such a way that they have nested relationships, may have relationships with multiple terms in the same domain.
 
-To view the project...
+To view the project go to [https://rawgit.com/cmunro/finalproject/master/final_project.html](this raw git page).
 
 ## The data
 
