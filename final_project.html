@@ -222,11 +222,12 @@ d3.selectAll("#mapk")
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","green":"green"}
+  var opacity ={"2.5":"0.1","4":"0.5"}
 
   svg.selectAll("circle")
     .data(data)
     .transition()
-    .duration(3000)    
+    .duration(4000)    
     .attr("cx", function(d) {
     return x(d.CMN0039_GO_mapk);
      })
@@ -235,6 +236,7 @@ d3.selectAll("#mapk")
     })
     .attr("r", function(d) {return d.mapk_radius;
     })
+    .style("opacity",function(d){return opacity[d.mapk_radius];})
     .attr("fill", function(d) {
       return colour[d.mapk_colour];
     });
@@ -262,11 +264,12 @@ d3.selectAll("#wnt")
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","red":"red"}
+  var opacity ={"2.5":"0.1","21":"0.5"}
 
   svg.selectAll("circle")
     .data(data)
     .transition()
-    .duration(3000)    
+    .duration(4000)    
     .attr("cx", function(d) {
     return x(d.CMN0039_GO_wnt);
      })
@@ -275,6 +278,7 @@ d3.selectAll("#wnt")
     })
     .attr("r", function(d) {return d.wnt_radius;
     })
+    .style("opacity",function(d){return opacity[d.wnt_radius];})
     .attr("fill", function(d) {
       return colour[d.wnt_colour];
     });
@@ -301,11 +305,12 @@ d3.selectAll("#cell")
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","blue":"blue"}
+  var opacity ={"2.5":"0.1","5":"0.5"}
 
   svg.selectAll("circle")
     .data(data)
     .transition()
-    .duration(3000)    
+    .duration(4000)    
     .attr("cx", function(d) {
     return x(d.CMN0039_GO_fate);
      })
@@ -314,6 +319,7 @@ d3.selectAll("#cell")
     })
     .attr("r", function(d) {return d.fate_radius;
     })
+    .style("opacity",function(d){return opacity[d.fate_radius];})
     .attr("fill", function(d) {
       return colour[d.fate_colour];
     });
@@ -340,11 +346,12 @@ d3.selectAll("#cyst")
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","yellow":"yellow"}
+  var opacity ={"2.5":"0.1","6":"0.5"}
 
   svg.selectAll("circle")
     .data(data)
     .transition()
-    .duration(3000)    
+    .duration(4000)    
     .attr("cx", function(d) {
     return x(d.CMN0039_GO_cyst);
      })
@@ -353,6 +360,7 @@ d3.selectAll("#cyst")
     })
     .attr("r", function(d) {return d.cyst_radius;
     })
+    .style("opacity",function(d){return opacity[d.cyst_radius];})
     .attr("fill", function(d) {
       return colour[d.cyst_colour];
     });
