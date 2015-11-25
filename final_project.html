@@ -32,7 +32,7 @@
   
 <h2> Introduction </h2>
 <p>
-This is a visualization of gene expression patterns of the Siphonophore Bargmannia elongata, showing normalized counts between two major tissue types. I generated normalized counts using the R package edgeR, and generated Gene Ontology (GO) terms using the program <a href="https://www.blast2go.com/"> blast2go </a>. Under this <a href="https://en.wikipedia.org/wiki/Gene_ontology">method</a>, genes are grouped into three main domains: 1) cellular component; 2) molecular function; 3) biological process. Using the R package topGO, I obtained a list of GO terms that are significantly enriched in this dataset - below are three examples of GO terms that are significantly enriched in the biological process domain.    
+This is a visualization of gene expression patterns of the siphonophore Bargmannia elongata, showing normalized counts between two major tissue types. I generated normalized counts using the R package edgeR, and generated Gene Ontology (GO) terms using the program <a href="https://www.blast2go.com/"> blast2go </a>. Under this <a href="https://en.wikipedia.org/wiki/Gene_ontology">method</a>, genes are grouped into three main domains: 1) cellular component; 2) molecular function; 3) biological process. Using the R package topGO, I obtained a list of GO terms that are significantly enriched in this dataset - below are four examples of GO terms that are significantly enriched in the biological process domain.    
 
 </p>
 
@@ -40,23 +40,32 @@ This is a visualization of gene expression patterns of the Siphonophore Bargmann
 
 <p>Click on the GO terms below to visualize them on the scatter plot.</p>
 
-<p>
-<h3>Stress-activated MAPK cascade</h3>
-<ul id="mapk">
-</ul>
-</p>
+<TABLE BORDER="0">
+<TR>
 
-<p>
-<h3>Wnt signaling pathway</h3>
-<ul id="wnt">
-</ul>
-</p>
+<TD><div id="cyst"> <input name="cyst"
+                      type="button"
+                      value="Regulation of cysteine-type endopeptidase activity involved in apoptotic process"/>
+</div></TD>
 
-<p>
-<h3>Cell fate specification</h3>
-<ul id="cell">
-</ul>
-</p>
+<TD><div id="mapk"> <input name= "mapkupdate"
+                      type="button"
+                      value="Stress-activated MAPK cascade" />
+</div></TD>
+
+<TD><div id="wnt"> <input name="wnt"
+                      type="button"
+                      value= "Wnt signaling pathway" />
+</div></TD>
+
+<TD><div id="cell"> <input name="fate"
+                      type="button"
+                      value="Cell fate specification"/>
+</div></TD>
+
+</TR>
+
+</TABLE>  
 
 <script>
 var margin = {top: 20, right: 20, bottom: 30, left: 60},
@@ -68,6 +77,8 @@ var x = d3.scale.linear()
     .range([0, width]);
 var y = d3.scale.linear()
     .range([height,0]);
+var rScale = d3.scale.linear()
+                     .range([2, 21]);
 
   //set up axes
 var xAxis = d3.svg.axis()
@@ -151,19 +162,214 @@ svg.selectAll("dot")  //attach circles to data --generate scatterplot
   .data(data)
   .enter()
   .append("circle")
-  .attr("class","dot")     
+  .attr("class","dot")
+  .style("opacity", 0.1)     
   .attr("cx", function(d) {
     return x(d.CMN0039);
   })
   .attr("cy", function(d) {
     return y(d.CMN0040);
   })
-  .attr("r", 2.5);
-  /*.attr("r", function(d) {
-    return rScale(d[1]);
-  });*/
+  .attr("r",2.5);
 
 
+var mapk = ["CMN0039_GO_mapk","CMN0040_GO_mapk"];
+var wnt = ["CMN0039_GO_wnt","CMN0040_GO_wnt"];
+var cyst = ["CMN0039_GO_cyst","CMN0040_GO_cyst"];
+var fate = ["CMN0039_GO_fate","CMN0040_GO_fate"];
+
+d3.select("#mapk").selectAll("div")
+  .data(data).enter()
+  .append("id", function(d){
+   return(d.CMN0039_GO_mapk)
+   return(d.CMN0040_GO_mapk)
+   return(d.mapk_radius)
+   return(d.mapk_colour) 
+  });
+
+d3.select("#wnt").selectAll("div")
+  .data(data).enter()
+  .append("id", function(d){
+   return(d.CMN0039_GO_wnt)
+   return(d.CMN0040_GO_wnt)
+   return(d.wnt_radius)
+   return(d.wnt_colour) 
+  });
+
+d3.select("#cell").selectAll("div")
+  .data(data).enter()
+  .append("id", function(d){
+   return(d.CMN0039_GO_fate)
+   return(d.CMN0040_GO_fate)
+   return(d.fate_radius)
+   return(d.fate_colour) 
+  });
+
+d3.select("#cyst").selectAll("div")
+  .data(data).enter()
+  .append("id", function(d){
+   return(d.CMN0039_GO_cyst)
+   return(d.CMN0040_GO_cyst)
+   return(d.cyst_radius)
+   return(d.cyst_colour) 
+  });
+
+d3.selectAll("#mapk")
+  .on("click",function(){
+
+  x.domain(d3.extent(data, function(d) { return d.CMN0039_GO_mapk; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.CMN0040_GO_mapk; })).nice();
+  //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
+
+  var colour= {"black":"black","green":"green"}
+
+  svg.selectAll("circle")
+    .data(data)
+    .transition()
+    .duration(1000)    
+    .attr("cx", function(d) {
+    return x(d.CMN0039_GO_mapk);
+     })
+    .attr("cy", function(d) {
+    return y(d.CMN0040_GO_mapk);
+    })
+    .attr("r", function(d) {return d.mapk_radius;
+    })
+    .attr("fill", function(d) {
+      return colour[d.mapk_colour];
+    });
+
+    //Update X axis
+    svg.select(".x.axis")
+        .transition()
+        .duration(1000)
+        .call(xAxis);
+          
+          //Update Y axis
+    svg.select(".y.axis")
+        .transition()
+        .duration(1000)
+        .call(yAxis);
+
+        });
+
+
+d3.selectAll("#wnt")
+  .on("click",function(){
+
+  x.domain(d3.extent(data, function(d) { return d.CMN0039_GO_wnt; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.CMN0040_GO_wnt; })).nice();
+  //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
+
+  var colour= {"black":"black","red":"red"}
+
+  svg.selectAll("circle")
+    .data(data)
+    .transition()
+    .duration(1000)    
+    .attr("cx", function(d) {
+    return x(d.CMN0039_GO_wnt);
+     })
+    .attr("cy", function(d) {
+    return y(d.CMN0040_GO_wnt);
+    })
+    .attr("r", function(d) {return d.wnt_radius;
+    })
+    .attr("fill", function(d) {
+      return colour[d.wnt_colour];
+    });
+
+    //Update X axis
+    svg.select(".x.axis")
+        .transition()
+        .duration(1000)
+        .call(xAxis);
+          
+          //Update Y axis
+    svg.select(".y.axis")
+        .transition()
+        .duration(1000)
+        .call(yAxis);
+
+        });
+
+d3.selectAll("#cell")
+  .on("click",function(){
+
+  x.domain(d3.extent(data, function(d) { return d.CMN0039_GO_fate; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.CMN0040_GO_fate; })).nice();
+  //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
+
+  var colour= {"black":"black","blue":"blue"}
+
+  svg.selectAll("circle")
+    .data(data)
+    .transition()
+    .duration(1000)    
+    .attr("cx", function(d) {
+    return x(d.CMN0039_GO_fate);
+     })
+    .attr("cy", function(d) {
+    return y(d.CMN0040_GO_fate);
+    })
+    .attr("r", function(d) {return d.fate_radius;
+    })
+    .attr("fill", function(d) {
+      return colour[d.fate_colour];
+    });
+
+    //Update X axis
+    svg.select(".x.axis")
+        .transition()
+        .duration(1000)
+        .call(xAxis);
+          
+          //Update Y axis
+    svg.select(".y.axis")
+        .transition()
+        .duration(1000)
+        .call(yAxis);
+
+        });
+
+d3.selectAll("#cyst")
+  .on("click",function(){
+
+  x.domain(d3.extent(data, function(d) { return d.CMN0039_GO_cyst; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.CMN0040_GO_cyst; })).nice();
+  //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
+
+  var colour= {"black":"black","yellow":"yellow"}
+
+  svg.selectAll("circle")
+    .data(data)
+    .transition()
+    .duration(1000)    
+    .attr("cx", function(d) {
+    return x(d.CMN0039_GO_cyst);
+     })
+    .attr("cy", function(d) {
+    return y(d.CMN0040_GO_cyst);
+    })
+    .attr("r", function(d) {return d.cyst_radius;
+    })
+    .attr("fill", function(d) {
+      return colour[d.cyst_colour];
+    });
+
+    //Update X axis
+    svg.select(".x.axis")
+        .transition()
+        .duration(1000)
+        .call(xAxis);
+          
+          //Update Y axis
+    svg.select(".y.axis")
+        .transition()
+        .duration(1000)
+        .call(yAxis);
+
+        });
 
 
 
