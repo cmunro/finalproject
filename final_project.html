@@ -222,7 +222,7 @@ d3.selectAll("#mapk")
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","green":"green"}
-  var opacity ={"2.5":"0.1","4":"0.5"}
+  var opacity ={"2.5":"0.1","4":"1"}
 
   svg.selectAll("circle")
     .data(data)
@@ -264,7 +264,7 @@ d3.selectAll("#wnt")
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","red":"red"}
-  var opacity ={"2.5":"0.1","21":"0.5"}
+  var opacity ={"2.5":"0.1","21":"1"}
 
   svg.selectAll("circle")
     .data(data)
@@ -305,7 +305,7 @@ d3.selectAll("#cell")
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","blue":"blue"}
-  var opacity ={"2.5":"0.1","5":"0.5"}
+  var opacity ={"2.5":"0.1","5":"1"}
 
   svg.selectAll("circle")
     .data(data)
@@ -346,7 +346,7 @@ d3.selectAll("#cyst")
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","yellow":"yellow"}
-  var opacity ={"2.5":"0.1","6":"0.5"}
+  var opacity ={"2.5":"0.1","6":"1"}
 
   svg.selectAll("circle")
     .data(data)
