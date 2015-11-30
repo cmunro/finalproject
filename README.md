@@ -12,8 +12,7 @@ These data are unpublished, and form a small part of my thesis work. I have pull
 
 The datafile included in this visualisation shows a very small fraction of total genes in the larger dataset. This is because I have only included genes that are present in these tissues, that also has a Blast hit and GO annotations. 
 
-
-- Data structure - what are the variables? How are they organized? What states can they have
+The data are organised in a tab delimited format, with log counts for two tissues on two columns. For each of the GO terms, I have calculated a mean gene expression value that is common to each of the genes that share these go terms. Here I have 4 GO terms, and 8 columns with updated gene expression values - this is either the same as before (if these genes don't have a particular GO value), or it has the same mean gene expression value. I also have two additional columns for each of the GO terms - one is the radius, which is sized relative to the number of genes that have a particular GO term; and the other is the colour, which changes from black to another colour depending on the GO term.
 
 ## Background
 
@@ -23,32 +22,29 @@ The goal of this project was to visualize gene expression patterns as a scatterp
 
 ### Mapping of data to aesthetics
 
-How will aesthetic attributes ( X / Y / color / shape / size /texture / etc ) will be mapped to the data?
+Colour is used here to denote a different GO term. In this case, I have used red, yellow, green and blue for each of the GO term genes, and all other genes are black. Size is used to show how many genes are present for a particular GO term, so that I can map not only expression, but also the number of genes involved. I also used opacity for the "black" genes, to make it easier to determine how many genes are present, but I did not make the GO term genes opaque. This makes them easier to see against the black background.
 
 ### Filtering
 
-Are data filtered? ie in some views are some data not mapped to particular attributes of the image? What is the goal of the filtering?
+All filtering took place before entering D3. This is only a subset of the overall genes, ones that have both a blast hit and associated GO terms.This is because the original dataset is far too large.
 
 ### Extra ink
 
-Are there aesthetic attributes that are not mapped to the data? If so, what purpose do they serve ( redundancy for robustness / improve visual metaphor / but data in context / beauty / etc )?
-
-Are any data mapped to more than one aesthetic attribute? Why?
+I don't think there is any extra ink that does not map to the data. 
 
 ### Motion
 
-Motion is used in this plot to show continuity between the raw counts and the average GO term genes. 
+Motion is used in this plot to show continuity between the raw counts and the average GO term genes. I intentially made the transition speed relatively slow, so that it is possible to see which genes are contributing to the average.
 
 ### Perspective
 
-To what extent is perspective (eg mappings) controlled by users vs hard coded in advance? How does this project aid in exploration vs exposition?
+This is completely hard coded in advance, any exploration has been carried out in other programs like R, which I have also used to wrangle the data into a format that I can use in D3. This project serves more for exposition than exploration. 
 
 ## Assessment
 
-Was the new visualization successful at providing insight that was not possible or more difficult with previous approaches?
+This visualization did not provide an especially unique insight into my data. However, with the code in hand, I think it could be beneficial to include even more GO terms. At that point, there would be significantly fewer redundant graphs, and it would be relatively fast to switch between views of different GO terms.
 
-What are the main limitations of new approach?
+Currently I feel that the main limitations of this approach are that the statistical possibilities are relatively limited. Any transformations that I would like to make to these data have to be done in advance, before passing it to D3.
 
-What are future directions this could go in?
-
+Only looking at four GO terms is not enough - in the future, I'd like to see the top ten GO terms from all three domains here. 
 
