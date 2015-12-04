@@ -379,9 +379,86 @@ d3.selectAll("#cyst")
 
         });
 
-
-
 });
+
+var chart2 = d3.select("body") //generate var svg
+             .append("svg")
+             .attr("width", width + margin.left + margin.right)
+             .attr("height", height + margin.top + margin.bottom)
+             .append("g")
+             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.tsv(data_path, function(error,data){
+   if (error) throw error;
+  
+  data.forEach(function(d) {
+    d.CMN0040 = +d.CMN0040;
+    d.CMN0039 = +d.CMN0039;
+    d.CMN0047 = +d.CMN0047;
+    d.CMN0048 = +d.CMN0048;
+    d.CMN0039_GO_wnt = +d.CMN0039_GO_wnt;
+    d.CMN0040_GO_wnt = +d.CMN0040_GO_wnt;
+    d.CMN0039_GO_mapk = +d.CMN0039_GO_mapk;
+    d.CMN0040_GO_mapk = +d.CMN0040_GO_mapk;
+    d.CMN0039_GO_cyst = +d.CMN0039_GO_cyst;
+    d.CMN0040_GO_cyst = +d.CMN0040_GO_cyst;
+    d.CMN0039_GO_fate = +d.CMN0039_GO_fate;
+    d.CMN0040_GO_fate = +d.CMN0040_GO_fate;
+    d.wnt_radius = +d.wnt_radius;
+    d.mapk_radius = +d.mapk_radius;
+    d.cyst_radius = +d.cyst_radius;
+    d.fate_radius = +d.fate_radius;
+
+          });
+  
+  console.log(data);
+
+  x.domain(d3.extent(data, function(d) { return d.CMN0039; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.CMN0040; })).nice();
+
+/*var rScale = d3.scale.linear()
+                     .domain([0, d3.max(dataset, function(d) { return d[2]; })])
+                     .range([2, 5]); //edit rScale to give number of genes involved in GO? */
+chart2.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis)
+    .append("text")
+    .attr("class","label")
+    .attr("x",width)
+    .attr("y", -6)
+    .style("text-anchor","end")
+    .text("Nectophore counts (log)");
+
+//Create Y axis
+chart2.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+    .append("text")
+    .attr("class", "label")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Gastrozooid counts (log)");
+
+
+chart2.selectAll("dot")  //attach circles to data --generate scatterplot
+  .data(data)
+  .enter()
+  .append("circle")
+  .attr("class","dot")
+  .style("opacity", 0.1)     
+  .attr("cx", function(d) {
+    return x(d.CMN0039);
+  })
+  .attr("cy", function(d) {
+    return y(d.CMN0040);
+  })
+  .attr("r",2.5);
+  });
+
+
 
     </script>
   </body>
