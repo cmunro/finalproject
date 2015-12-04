@@ -498,7 +498,7 @@ d3.selectAll("#mapk")
 
   var colour= {"black":"black","green":"green"}
 
-  chart1.selectAll("circle")
+  chart2.selectAll("circle")
     .data(data)
     .transition()
     .duration(1000)    
@@ -511,6 +511,19 @@ d3.selectAll("#mapk")
     .attr("fill", function(d) {
       return colour[d.mapk_colour];
     });
+      //Update X axis
+    chart2.select(".x.axis")
+        .transition()
+        .duration(1000)
+        .call(xAxis);
+          
+          //Update Y axis
+    chart2.select(".y.axis")
+        .transition()
+        .duration(1000)
+        .call(yAxis);
+
+        });
 
 });
 
