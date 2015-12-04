@@ -492,8 +492,8 @@ d3.select("#cyst").selectAll("div")
 d3.selectAll("#mapk")
   .on("click",function(){
 
-  x.domain(d3.extent(data, function(d) { return d.CMN0039_GO_mapk; })).nice();
-  y.domain(d3.extent(data, function(d) { return d.CMN0040_GO_mapk; })).nice();
+  x.domain(d3.extent(data, function(d) { return d.CMN0039; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.CMN0040; })).nice();
   //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
 
   var colour= {"black":"black","green":"green"}
