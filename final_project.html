@@ -181,6 +181,8 @@ var fate = ["CMN0039_GO_fate","CMN0040_GO_fate"];
 d3.select("#mapk").selectAll("div")
   .data(data).enter()
   .append("id", function(d){
+   return(d.CMN0039)
+   return(d.CMN0040)  
    return(d.CMN0039_GO_mapk)
    return(d.CMN0040_GO_mapk)
    return(d.mapk_radius)
@@ -192,6 +194,8 @@ d3.select("#wnt").selectAll("div")
   .append("id", function(d){
    return(d.CMN0039_GO_wnt)
    return(d.CMN0040_GO_wnt)
+   return(d.CMN0039)
+   return(d.CMN0040)
    return(d.wnt_radius)
    return(d.wnt_colour) 
   });
@@ -201,6 +205,8 @@ d3.select("#cell").selectAll("div")
   .append("id", function(d){
    return(d.CMN0039_GO_fate)
    return(d.CMN0040_GO_fate)
+   return(d.CMN0039)
+   return(d.CMN0040)
    return(d.fate_radius)
    return(d.fate_colour) 
   });
@@ -210,6 +216,8 @@ d3.select("#cyst").selectAll("div")
   .append("id", function(d){
    return(d.CMN0039_GO_cyst)
    return(d.CMN0040_GO_cyst)
+   return(d.CMN0039)
+   return(d.CMN0040)
    return(d.cyst_radius)
    return(d.cyst_colour) 
   });
@@ -457,37 +465,6 @@ chart2.selectAll("dot")  //attach circles to data --generate scatterplot
   })
   .attr("r",2.5);
 
-d3.select("#mapk").selectAll("div")
-  .data(data).enter()
-  .append("id", function(d){
-   return(d.CMN0039)
-   return(d.CMN0040)
-   return(d.mapk_colour) 
-  });
-
-d3.select("#wnt").selectAll("div")
-  .data(data).enter()
-  .append("id", function(d){
-   return(d.CMN0039)
-   return(d.CMN0040)
-   return(d.wnt_colour) 
-  });
-
-d3.select("#cell").selectAll("div")
-  .data(data).enter()
-  .append("id", function(d){
-   return(d.CMN0039)
-   return(d.CMN0040)
-   return(d.fate_colour) 
-  });
-
-d3.select("#cyst").selectAll("div")
-  .data(data).enter()
-  .append("id", function(d){
-   return(d.CMN0039)
-   return(d.CMN0040)
-   return(d.cyst_colour) 
-  });
 
 d3.selectAll("#mapk")
   .on("click",function(){
