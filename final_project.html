@@ -90,7 +90,7 @@ var yAxis = d3.svg.axis()
                   .orient("left")
                   .ticks(8);
 
-var chart1 = d3.selectAll("body") //generate var svg
+var chart1 = d3.select("body") //generate var svg
              .append("svg")
              .attr("width", width + margin.left + margin.right)
              .attr("height", height + margin.top + margin.bottom)
