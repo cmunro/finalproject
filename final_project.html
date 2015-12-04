@@ -173,10 +173,10 @@ chart1.selectAll("dot")  //attach circles to data --generate scatterplot
   .attr("r",2.5);
 
 
-var mapk = ["CMN0039_GO_mapk","CMN0040_GO_mapk"];
+/*var mapk = ["CMN0039_GO_mapk","CMN0040_GO_mapk"];
 var wnt = ["CMN0039_GO_wnt","CMN0040_GO_wnt"];
 var cyst = ["CMN0039_GO_cyst","CMN0040_GO_cyst"];
-var fate = ["CMN0039_GO_fate","CMN0040_GO_fate"];
+var fate = ["CMN0039_GO_fate","CMN0040_GO_fate"];*/
 
 d3.select("#mapk").selectAll("div")
   .data(data).enter()
@@ -479,12 +479,6 @@ chart2.selectAll("dot")  //attach circles to data --generate scatterplot
     .data(data)
     .transition()
     .duration(1000)    
-    .attr("cx", function(d) {
-    return x(d.CMN0039);
-     })
-    .attr("cy", function(d) {
-    return y(d.CMN0040);
-    })
     .attr("fill", function(d) {
       return colour[d.mapk_colour];
     });
@@ -515,12 +509,6 @@ d3.selectAll("#wnt")
     .data(data)
     .transition()
     .duration(1000)    
-    .attr("cx", function(d) {
-    return x(d.CMN0039);
-     })
-    .attr("cy", function(d) {
-    return y(d.CMN0040);
-    })
     .attr("fill", function(d) {
       return colour[d.wnt_colour];
     });
@@ -552,12 +540,6 @@ d3.selectAll("#cell")
     .data(data)
     .transition()
     .duration(1000)    
-    .attr("cx", function(d) {
-    return x(d.CMN0039);
-     })
-    .attr("cy", function(d) {
-    return y(d.CMN0040);
-    })
     .attr("fill", function(d) {
       return colour[d.fate_colour];
     });
@@ -589,12 +571,6 @@ d3.selectAll("#cyst")
     .data(data)
     .transition()
     .duration(1000)    
-    .attr("cx", function(d) {
-    return x(d.CMN0039);
-     })
-    .attr("cy", function(d) {
-    return y(d.CMN0040);
-    })
     .attr("fill", function(d) {
       return colour[d.cyst_colour];
     });
