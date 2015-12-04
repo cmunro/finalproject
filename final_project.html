@@ -90,7 +90,7 @@ var yAxis = d3.svg.axis()
                   .orient("left")
                   .ticks(8);
 
-var svg = d3.selectAll("body") //generate var svg
+var chart1 = d3.selectAll("body") //generate var svg
              .append("svg")
              .attr("width", width + margin.left + margin.right)
              .attr("height", height + margin.top + margin.bottom)
@@ -134,7 +134,7 @@ d3.tsv(data_path, function(error,data){
 /*var rScale = d3.scale.linear()
                      .domain([0, d3.max(dataset, function(d) { return d[2]; })])
                      .range([2, 5]); //edit rScale to give number of genes involved in GO? */
-svg.append("g")
+chart1.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis)
@@ -146,7 +146,7 @@ svg.append("g")
     .text("Nectophore counts (log)");
 
 //Create Y axis
-svg.append("g")
+chart1.append("g")
     .attr("class", "y axis")
     .call(yAxis)
     .append("text")
@@ -158,7 +158,7 @@ svg.append("g")
     .text("Gastrozooid counts (log)");
 
 
-svg.selectAll("dot")  //attach circles to data --generate scatterplot
+chatr1.selectAll("dot")  //attach circles to data --generate scatterplot
   .data(data)
   .enter()
   .append("circle")
@@ -224,7 +224,7 @@ d3.selectAll("#mapk")
   var colour= {"black":"black","green":"green"}
   var opacity ={"2.5":"0.1","4":"1"}
 
-  svg.selectAll("circle")
+  chart1.selectAll("circle")
     .data(data)
     .transition()
     .duration(4000)    
@@ -242,13 +242,13 @@ d3.selectAll("#mapk")
     });
 
     //Update X axis
-    svg.select(".x.axis")
+    chart1.select(".x.axis")
         .transition()
         .duration(1000)
         .call(xAxis);
           
           //Update Y axis
-    svg.select(".y.axis")
+    chart1.select(".y.axis")
         .transition()
         .duration(1000)
         .call(yAxis);
@@ -266,7 +266,7 @@ d3.selectAll("#wnt")
   var colour= {"black":"black","red":"red"}
   var opacity ={"2.5":"0.1","21":"1"}
 
-  svg.selectAll("circle")
+  chart1.selectAll("circle")
     .data(data)
     .transition()
     .duration(4000)    
@@ -284,13 +284,13 @@ d3.selectAll("#wnt")
     });
 
     //Update X axis
-    svg.select(".x.axis")
+    chart1.select(".x.axis")
         .transition()
         .duration(1000)
         .call(xAxis);
           
           //Update Y axis
-    svg.select(".y.axis")
+    chart1.select(".y.axis")
         .transition()
         .duration(1000)
         .call(yAxis);
@@ -307,7 +307,7 @@ d3.selectAll("#cell")
   var colour= {"black":"black","blue":"blue"}
   var opacity ={"2.5":"0.1","5":"1"}
 
-  svg.selectAll("circle")
+  chart1.selectAll("circle")
     .data(data)
     .transition()
     .duration(4000)    
@@ -325,13 +325,13 @@ d3.selectAll("#cell")
     });
 
     //Update X axis
-    svg.select(".x.axis")
+    chart1.select(".x.axis")
         .transition()
         .duration(1000)
         .call(xAxis);
           
           //Update Y axis
-    svg.select(".y.axis")
+    chart1.select(".y.axis")
         .transition()
         .duration(1000)
         .call(yAxis);
@@ -348,7 +348,7 @@ d3.selectAll("#cyst")
   var colour= {"black":"black","yellow":"yellow"}
   var opacity ={"2.5":"0.1","6":"1"}
 
-  svg.selectAll("circle")
+  chart1.selectAll("circle")
     .data(data)
     .transition()
     .duration(4000)    
@@ -366,13 +366,13 @@ d3.selectAll("#cyst")
     });
 
     //Update X axis
-    svg.select(".x.axis")
+    chart1.select(".x.axis")
         .transition()
         .duration(1000)
         .call(xAxis);
           
           //Update Y axis
-    svg.select(".y.axis")
+    chart1.select(".y.axis")
         .transition()
         .duration(1000)
         .call(yAxis);
