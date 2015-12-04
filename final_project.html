@@ -456,7 +456,63 @@ chart2.selectAll("dot")  //attach circles to data --generate scatterplot
     return y(d.CMN0040);
   })
   .attr("r",2.5);
+
+d3.select("#mapk").selectAll("div")
+  .data(data).enter()
+  .append("id", function(d){
+   return(d.CMN0039)
+   return(d.CMN0040)
+   return(d.mapk_colour) 
   });
+
+d3.select("#wnt").selectAll("div")
+  .data(data).enter()
+  .append("id", function(d){
+   return(d.CMN0039)
+   return(d.CMN0040)
+   return(d.wnt_colour) 
+  });
+
+d3.select("#cell").selectAll("div")
+  .data(data).enter()
+  .append("id", function(d){
+   return(d.CMN0039)
+   return(d.CMN0040)
+   return(d.fate_colour) 
+  });
+
+d3.select("#cyst").selectAll("div")
+  .data(data).enter()
+  .append("id", function(d){
+   return(d.CMN0039)
+   return(d.CMN0040)
+   return(d.cyst_colour) 
+  });
+
+d3.selectAll("#mapk")
+  .on("click",function(){
+
+  x.domain(d3.extent(data, function(d) { return d.CMN0039_GO_mapk; })).nice();
+  y.domain(d3.extent(data, function(d) { return d.CMN0040_GO_mapk; })).nice();
+  //rScale.domain(d3.extent(data, function(d) { return d.mapk_radius; })).nice();
+
+  var colour= {"black":"black","green":"green"}
+
+  chart1.selectAll("circle")
+    .data(data)
+    .transition()
+    .duration(1000)    
+    .attr("cx", function(d) {
+    return x(d.CMN0039);
+     })
+    .attr("cy", function(d) {
+    return y(d.CMN0040);
+    })
+    .attr("fill", function(d) {
+      return colour[d.mapk_colour];
+    });
+
+});
 
 
 
